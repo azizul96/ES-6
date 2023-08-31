@@ -1,15 +1,20 @@
+let allAI 
 const loadData = async (showAll)=> {
     const response = await fetch('https://openapi.programming-hero.com/api/ai/tools')
     const data = await response.json()
-    const allAI = data.data.tools
+     allAI = data.data.tools
     displayAI(allAI, showAll)
+    
+    
 }
 
 const displayAI = (getAI, showAll) =>{
+    // getAI.sort((a,b) => new Date(b.published_in) - new Date(a.published_in))
+    
     const aiCardContainer = document.getElementById('ai-card-container')
     aiCardContainer.innerText = '';
     const showAllContainer =document.getElementById('show-all-container')
-    if(getAI.length > 6){
+    if(getAI.length > 6 && !showAll){
       showAllContainer.classList.remove('hidden')
     }
     else{
@@ -19,12 +24,9 @@ const displayAI = (getAI, showAll) =>{
       getAI= getAI.slice(0,6);
     }
     
-    
-
 
     getAI.forEach(singleAI =>{
-        console.log(singleAI);
-
+      
         const aiCard = document.createElement('div')
         aiCard.classList = 'card bg-base-100 shadow-xl'
         aiCard.innerHTML =`
@@ -49,13 +51,21 @@ const displayAI = (getAI, showAll) =>{
 }
 
 const showAllHandler = ()=>{
-  console.log('click');
   loadData(true)
 }
 
+
 loadData()
 
-
+const sortByDate = async (showAll)=> {
+  // const response = await fetch('https://openapi.programming-hero.com/api/ai/tools')
+  // const data = await response.json()
+  // const allAI = data.data.tools
+  const sortData = allAI.sort((a,b) => new Date(b.published_in) - new Date(a.published_in))
+  displayAI(sortData, showAll)
+  
+  
+}
 
 
 
