@@ -2,15 +2,16 @@ let allAI
 const loadData = async (showAll)=> {
     const response = await fetch('https://openapi.programming-hero.com/api/ai/tools')
     const data = await response.json()
+    console.log(data);
      allAI = data.data.tools
     displayAI(allAI, showAll)
-    
+    // console.log(allAI);
     
 }
 
 const displayAI = (getAI, showAll) =>{
     // getAI.sort((a,b) => new Date(b.published_in) - new Date(a.published_in))
-    
+  
     const aiCardContainer = document.getElementById('ai-card-container')
     aiCardContainer.innerText = '';
     const showAllContainer =document.getElementById('show-all-container')
